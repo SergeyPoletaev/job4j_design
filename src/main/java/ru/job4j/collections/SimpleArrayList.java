@@ -3,6 +3,7 @@ package ru.job4j.collections;
 import java.util.*;
 
 public class SimpleArrayList<T> implements List<T> {
+    private final static int INITIAL_CAPACITY = 10;
     private T[] container;
     private int size;
     private int modCount;
@@ -13,9 +14,7 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public void add(T value) {
-        if (container.length == size) {
-            container = Arrays.copyOf(container, container.length * 2);
-        }
+        grow();
         container[size] = value;
         size++;
         modCount++;
@@ -23,7 +22,7 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public T set(int index, T newValue) {
-        Objects.checkIndex(index, size);
+        checkIndex(index);
         T oldValue = container[index];
         container[index] = newValue;
         return oldValue;
@@ -31,7 +30,7 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public T remove(int index) {
-        Objects.checkIndex(index, size);
+        checkIndex(index);
         T oldValue = container[index];
         System.arraycopy(
                 container,
@@ -48,7 +47,7 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public T get(int index) {
-        Objects.checkIndex(index, size);
+        checkIndex(index);
         return container[index];
     }
 
@@ -65,6 +64,9 @@ public class SimpleArrayList<T> implements List<T> {
 
             @Override
             public boolean hasNext() {
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
+                }
                 return count < size;
             }
 
@@ -73,11 +75,20 @@ public class SimpleArrayList<T> implements List<T> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                if (expectedModCount != modCount) {
-                    throw new ConcurrentModificationException();
-                }
                 return container[count++];
             }
         };
+    }
+
+    private void grow() {
+        if (container.length == 0) {
+            container = Arrays.copyOf(container, INITIAL_CAPACITY);
+        } else if (container.length == size) {
+            container = Arrays.copyOf(container, container.length * 2);
+        }
+    }
+
+    private void checkIndex(int index) {
+        Objects.checkIndex(index, size);
     }
 }
