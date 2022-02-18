@@ -3,6 +3,7 @@ package ru.job4j.collections.map;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class SimpleMap<K, V> implements Map<K, V> {
     private static final float LOAD_FACTOR = 0.75F;
@@ -13,7 +14,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean put(K key, V value) {
-        if (count == capacity * LOAD_FACTOR) {
+        if (count >= capacity * LOAD_FACTOR) {
             resize();
         }
         int hi = hash(key, table);
@@ -29,13 +30,13 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public V get(K key) {
         MapEntry<K, V> entry = table[hash(key, table)];
-        return entry != null ? entry.value : null;
+        return entry != null && Objects.equals(entry.key, key) ? entry.value : null;
     }
 
     @Override
     public boolean remove(K key) {
         int hi = hash(key, table);
-        boolean rsl = table[hi] != null;
+        boolean rsl = table[hi] != null && Objects.equals(table[hi].key, key);
         if (rsl) {
             table[hi] = null;
             modCount++;
@@ -56,6 +57,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
+                while (index < table.length && table[index] == null) {
+                    index++;
+                }
                 return total < count;
             }
 
@@ -64,16 +68,8 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                K rsl = null;
-                for (int i = index; i < table.length; i++) {
-                    if (table[i] != null) {
-                        rsl = table[i].key;
-                        index++;
-                        total++;
-                        break;
-                    }
-                }
-                return rsl;
+                total++;
+                return table[index++].key;
             }
         };
     }
