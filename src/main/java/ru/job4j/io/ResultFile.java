@@ -17,8 +17,7 @@ public class ResultFile {
                     }
                 }
             }
-        } catch (
-                IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
