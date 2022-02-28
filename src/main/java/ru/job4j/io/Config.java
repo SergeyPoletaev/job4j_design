@@ -19,8 +19,8 @@ public class Config {
         try (BufferedReader in = new BufferedReader(new FileReader(path))) {
             String read = in.readLine();
             while (read != null) {
-                check(read);
                 if (!read.startsWith("#") && !read.isEmpty()) {
+                    check(read);
                     String[] strings = read.split("=", 2);
                     values.put(strings[0], strings[1]);
                 }
@@ -32,7 +32,7 @@ public class Config {
     }
 
     private void check(String read) {
-        if ((!read.startsWith("#") && !read.contains("=") && !read.isEmpty())
+        if (!read.contains("=")
                 || read.startsWith("=")
                 || read.endsWith("=")
                 || read.contains(" =")
