@@ -19,21 +19,25 @@ public class Config {
         try (BufferedReader in = new BufferedReader(new FileReader(path))) {
             String read = in.readLine();
             while (read != null) {
-                if ((!read.startsWith("#") && !read.contains("=") && !read.isEmpty())
-                        || read.startsWith("=")
-                        || read.endsWith("=")
-                        || read.contains(" =")
-                        || read.contains("= ")) {
-                    throw new IllegalArgumentException();
-                }
+                check(read);
                 if (!read.startsWith("#") && !read.isEmpty()) {
-                    String[] strings = read.split("=");
+                    String[] strings = read.split("=", 2);
                     values.put(strings[0], strings[1]);
                 }
                 read = in.readLine();
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void check(String read) {
+        if ((!read.startsWith("#") && !read.contains("=") && !read.isEmpty())
+                || read.startsWith("=")
+                || read.endsWith("=")
+                || read.contains(" =")
+                || read.contains("= ")) {
+            throw new IllegalArgumentException();
         }
     }
 
