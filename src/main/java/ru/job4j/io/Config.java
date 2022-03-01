@@ -22,7 +22,9 @@ public class Config {
                 if (!read.startsWith("#") && !read.isEmpty()) {
                     check(read);
                     String[] strings = read.split("=", 2);
-                    values.put(strings[0], strings[1]);
+                    if (!strings[0].isBlank() && !strings[1].isBlank()) {
+                        values.put(strings[0], strings[1]);
+                    }
                 }
                 read = in.readLine();
             }
@@ -34,9 +36,7 @@ public class Config {
     private void check(String read) {
         if (!read.contains("=")
                 || read.startsWith("=")
-                || read.endsWith("=")
-                || read.contains(" =")
-                || read.contains("= ")) {
+                || read.endsWith("=")) {
             throw new IllegalArgumentException();
         }
     }
