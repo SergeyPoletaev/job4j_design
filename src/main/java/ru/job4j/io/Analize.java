@@ -15,10 +15,10 @@ public class Analize {
             boolean flag = false;
             for (String line = in.readLine(); line != null; line = in.readLine()) {
                 String[] str = line.split(" ");
-                if ((Integer.parseInt(str[0]) == 400 || Integer.parseInt(str[0]) == 500) && !flag) {
+                if (("400".equals(str[0]) || "500".equals(str[0])) && !flag) {
                     out.print(str[1] + ";");
                     flag = true;
-                } else if ((Integer.parseInt(str[0]) == 200 || Integer.parseInt(str[0]) == 300) && flag) {
+                } else if (("200".equals(str[0]) || "300".equals(str[0])) && flag) {
                     out.println(str[1]);
                     flag = false;
                 }
