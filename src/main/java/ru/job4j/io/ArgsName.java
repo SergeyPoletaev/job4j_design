@@ -21,16 +21,17 @@ public class ArgsName {
     }
 
     public String get(String key) {
-        if (values.containsKey(key)) {
-            return values.get(key);
+        if (!values.containsKey(key)) {
+            throw new IllegalArgumentException("The argument is not found");
         }
-        throw new IllegalArgumentException("The argument is not found");
+        return values.get(key);
     }
 
     private void parse(String[] args) {
         for (var str : args) {
             String[] tmp = str.split("=", 2);
-            if (!tmp[0].startsWith("-")
+            if (tmp.length != 2
+                    || !tmp[0].startsWith("-")
                     || tmp[0].length() < 2
                     || tmp[0].substring(1).isBlank()
                     || tmp[1].isBlank()) {
