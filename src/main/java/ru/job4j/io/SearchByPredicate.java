@@ -17,6 +17,12 @@ public class SearchByPredicate {
             );
         }
         Path start = Paths.get(args[0]);
+        if (!start.toFile().exists() || start.toFile().isDirectory()) {
+            throw new IllegalArgumentException("The first parameter is not the path or is not a directory.");
+        }
+        if (!args[1].startsWith(".")) {
+            throw new IllegalArgumentException("The second parameter does not match the file extension format.");
+        }
         search(start, p -> p.toFile().getName().endsWith(args[1])).forEach(System.out::println);
     }
 
