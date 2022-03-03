@@ -84,10 +84,10 @@
               <goal>shade</goal>
             </goals>
             <configuration>
-              <finalName>searchByPredicate</finalName>
+              <finalName>zipProgram</finalName>
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>ru.job4j.io.SearchByPredicate</mainClass>
+                  <mainClass>ru.job4j.io.ZipProgram</mainClass>
                 </transformer>
               </transformers>
             </configuration>
