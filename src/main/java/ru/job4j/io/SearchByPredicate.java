@@ -10,8 +10,14 @@ import java.util.function.Predicate;
 public class SearchByPredicate {
 
     public static void main(String[] args) throws IOException {
-        Path start = Paths.get(".");
-        search(start, p -> p.toFile().getName().endsWith(".js")).forEach(System.out::println);
+        if (args.length != 2) {
+            throw new IllegalArgumentException(
+                    "Root folder and file expansion is null."
+                            + " Usage java -jar searchByPredicate.jar ROOT_FOLDER FILE_EXPANSION"
+            );
+        }
+        Path start = Paths.get(args[0]);
+        search(start, p -> p.toFile().getName().endsWith(args[1])).forEach(System.out::println);
     }
 
     public static List<Path> search(Path root, Predicate<Path> condition) throws IOException {
