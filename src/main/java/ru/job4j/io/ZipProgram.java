@@ -23,8 +23,12 @@ public class ZipProgram {
         if (!dir.toFile().exists() || !dir.toFile().isDirectory()) {
             throw new IllegalArgumentException("Archived directory does not exist");
         }
+        String exclude = argsName.get("e");
+        if (!exclude.startsWith(".")) {
+            throw new IllegalArgumentException("Key parameter -e does not match the file extension format.");
+        }
+        List<Path> source = search(dir, p -> !p.toFile().getName().endsWith(exclude));
         Path target = Path.of(argsName.get("o"));
-        List<Path> source = search(dir, p -> !p.toFile().getName().endsWith(argsName.get("e")));
         new Zip().packFiles(source, target);
     }
 
