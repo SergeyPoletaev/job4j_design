@@ -30,9 +30,9 @@ public class ConsoleChat {
         List<String> log = new ArrayList<>();
         String word = sc.nextLine();
         log.add(word);
-        while (!word.equals(OUT)) {
-            if (word.equals(STOP)) {
-                while (!word.equals(CONTINUE)) {
+        while (!OUT.equals(word)) {
+            if (STOP.equals(word)) {
+                while (!CONTINUE.equals(word)) {
                     word = sc.nextLine();
                     log.add(word);
                 }
