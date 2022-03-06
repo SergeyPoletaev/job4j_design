@@ -9,3 +9,5 @@
 * Память
 * Ввод-вывод, Socket
 * SQl, JDBC
+
+[![BUILD](https://github.com/SergeyPoletaev/job4j_design/workflows/BUILD/badge.svg)](https://github.com/SergeyPoletaev/job4j_design/actions)
