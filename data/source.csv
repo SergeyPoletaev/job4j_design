@@ -1,0 +1,4 @@
+name;age;birthDate;education;children
+anna;20;11.12.2020;true;2
+sergey;15;14.10.2015;false;3
+maria;21;02.08.1980;true;0

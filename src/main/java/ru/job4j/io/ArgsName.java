@@ -22,7 +22,7 @@ public class ArgsName {
 
     public String get(String key) {
         if (!values.containsKey(key)) {
-            throw new IllegalArgumentException("The argument is not found");
+            throw new IllegalArgumentException(String.format("The argument -%s is not found", key));
         }
         return values.get(key);
     }
