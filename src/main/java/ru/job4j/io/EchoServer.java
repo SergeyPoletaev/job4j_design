@@ -18,8 +18,12 @@ public class EchoServer {
                     out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                     for (String str = in.readLine(); str != null && !str.isEmpty(); str = in.readLine()) {
                         System.out.println(str);
-                        if (str.contains("msg=Bye ")) {
+                        if (str.contains("msg=Exit ")) {
                             server.close();
+                        } else if (str.contains("msg=Hello ")) {
+                            out.write("Hello, dear friend".getBytes());
+                        } else if (str.contains("msg=") && str.endsWith(" HTTP/1.1")) {
+                            out.write("What, dear friend?".getBytes());
                         }
                     }
                     out.flush();
