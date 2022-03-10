@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<student name="Anna" age="10" status="true">
+    <group name="45-P"/>
+    <documentes>
+        <documets>diploma</documets>
+        <documets>photo</documets>
+    </documentes>
+</student>
