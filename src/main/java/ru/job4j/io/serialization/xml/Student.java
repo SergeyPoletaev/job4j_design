@@ -1,13 +1,26 @@
 package ru.job4j.io.serialization.xml;
 
+import javax.xml.bind.annotation.*;
 import java.util.Arrays;
 
+@XmlRootElement(name = "student")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Student {
-    private final String name;
-    private final int age;
-    private final boolean status;
-    private final Group group;
-    private final String[] documents;
+    @XmlAttribute
+    private String name;
+    @XmlAttribute
+    private int age;
+    @XmlAttribute
+    private boolean status;
+    @XmlElement(name = "group")
+    private Group group;
+    @XmlElementWrapper(name = "documentes")
+    @XmlElement(name = "documents")
+    private String[] documents;
+
+    public Student() {
+
+    }
 
     public Student(String name, int age, boolean status, Group group, String[] documents) {
         this.name = name;
