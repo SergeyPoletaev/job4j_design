@@ -17,6 +17,26 @@ public class Student {
         this.documents = documents;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public String[] getDocuments() {
+        return documents;
+    }
+
     @Override
     public String toString() {
         return "Student{"
