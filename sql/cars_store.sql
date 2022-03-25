@@ -51,9 +51,9 @@ values ('alpha', 1, 2, 1),
 
 select c.name as car_model, e.name as engine, gb.name as gearbox, cc.name as carecase
 from cars c
-         join engines e on c.id_engine = e.id
-         join gearboxes gb on c.id_gearbox = gb.id
-         join carcases cc on c.id_carcase = cc.id;
+         left join engines e on c.id_engine = e.id
+         left join gearboxes gb on c.id_gearbox = gb.id
+         left join carcases cc on c.id_carcase = cc.id;
 
 select e.name as not_used_engines
 from engines e
