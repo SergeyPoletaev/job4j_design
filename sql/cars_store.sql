@@ -56,19 +56,16 @@ from cars c
          join carcases cc on c.id_carcase = cc.id;
 
 select e.name as not_used_engines
-from cars
-         full join engines e on cars.id_engine = e.id
-where cars.name is null
-  and e.name is not null;
+from engines e
+         left join cars c on c.id_engine = e.id
+where c.name is null;
 
 select gb.name as not_used_gearbox
-from cars
-         full join gearboxes gb on cars.id_engine = gb.id
-where cars.name is null
-  and gb.name is not null;
+from gearboxes gb
+         left join cars c on c.id_engine = gb.id
+where c.name is null;
 
 select cc.name as not_used_carecase
-from cars
-         full join carcases cc on cars.id_engine = cc.id
-where cars.name is null
-  and cc.name is not null;
+from carcases cc
+         left join cars c on c.id_engine = cc.id
+where c.name is null;
