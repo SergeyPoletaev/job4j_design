@@ -31,12 +31,21 @@ public class ImportDB {
         db.save(db.load());
     }
 
-    public List<User> load() throws IOException {
+    public List<User> load() {
         List<User> users = new ArrayList<>();
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
             rd.lines()
                     .map(l -> l.split(";"))
-                    .forEach(arr -> users.add(new User(arr[0], arr[1])));
+                    .forEach(arr -> {
+                        if (arr.length != 2 || arr[0].isBlank() || arr[1].isBlank()) {
+                            throw new IllegalArgumentException(String.format(
+                                    "The incorrect input data format obtained from file %s "
+                                            + "or data contain empty extensions.", dump));
+                        }
+                        users.add(new User(arr[0], arr[1]));
+                    });
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return users;
     }
