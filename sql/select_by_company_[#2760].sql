@@ -19,11 +19,9 @@ select company.name, cc.cnt
 from (select *
       from (select company_id, count(company_id) as cnt
             from person
-            group by company_id) as c
-      where cnt = (select max(c.cnt)
-                   from (select company_id, count(company_id) as cnt
-                         from person
-                         group by company_id) as c)) as cc
+            group by company_id
+            order by cnt desc
+            limit 1) as c) as cc
          join company on cc.company_id = company.id;
 
 
