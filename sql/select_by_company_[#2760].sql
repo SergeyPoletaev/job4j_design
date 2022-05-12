@@ -15,13 +15,13 @@ where c.id != 5;
 -- 2. Необходимо выбрать название компании с максимальным количеством человек + количество человек в этой компании
 -- (нужно учесть, что таких компаний может быть несколько)
 
-select company.name, cc.cnt
-from (select *
-      from (select company_id, count(company_id) as cnt
-            from person
-            group by company_id
-            order by cnt desc
-            limit 1) as c) as cc
-         join company on cc.company_id = company.id;
-
-
+select c.name, count(*)
+from person p
+         join company c
+              on p.company_id = c.id
+group by c.name
+having count(*) = (select count(company_id) as cnt
+                   from person
+                   group by company_id
+                   order by cnt desc
+                   limit 1);
