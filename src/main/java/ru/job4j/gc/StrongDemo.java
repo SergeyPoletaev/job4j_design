@@ -2,14 +2,13 @@ package ru.job4j.gc;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class StrongDemo {
 
     public static void main(String[] args) throws InterruptedException {
-//        example1();
-//        example2();
+        example1();
+        example2();
         example3();
     }
 
