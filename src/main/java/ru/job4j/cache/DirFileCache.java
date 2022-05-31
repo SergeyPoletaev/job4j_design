@@ -1,9 +1,9 @@
 package ru.job4j.cache;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class DirFileCache extends AbstractCache<String, String> {
     private final String cachingDir;
@@ -14,16 +14,13 @@ public class DirFileCache extends AbstractCache<String, String> {
 
     @Override
     protected String load(String key) {
-        StringBuilder sb = new StringBuilder();
-        try (BufferedReader in = new BufferedReader(new FileReader(cachingDir + key, StandardCharsets.UTF_8))) {
-            for (String line = in.readLine(); line != null; line = in.readLine()) {
-                sb.append(line).append(System.lineSeparator());
-            }
+        String rsl;
+        try {
+            rsl = Files.readString(Path.of(cachingDir, key), StandardCharsets.UTF_8);
+            put(key, rsl);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException("Неверно указана директория или имя файла");
         }
-        String rsl = sb.toString();
-        put(key, rsl);
         return rsl;
     }
 }

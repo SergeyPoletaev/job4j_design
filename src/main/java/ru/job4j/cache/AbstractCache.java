@@ -9,20 +9,11 @@ public abstract class AbstractCache<K, V> {
 
     public void put(K key, V value) {
         cache.put(key, new SoftReference<>(value));
-        System.out.println("Содержимое добавлено в кеш");
     }
 
     public V get(K key) {
-        V value;
-        if (cache.containsKey(key)) {
-            value = cache.get(key).get();
-            if (value == null) {
-                value = load(key);
-            }
-        } else {
-            value = load(key);
-        }
-        return value;
+        V value = cache.getOrDefault(key, new SoftReference<>(null)).get();
+        return value == null ? load(key) : value;
     }
 
     protected abstract V load(K key);
