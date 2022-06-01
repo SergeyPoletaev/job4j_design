@@ -17,7 +17,6 @@ public class DirFileCache extends AbstractCache<String, String> {
         String rsl;
         try {
             rsl = Files.readString(Path.of(cachingDir, key), StandardCharsets.UTF_8);
-            put(key, rsl);
         } catch (IOException e) {
             throw new IllegalArgumentException("Неверно указана директория или имя файла");
         }
