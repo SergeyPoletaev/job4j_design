@@ -31,11 +31,11 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", phone='" + phone + '\'' +
-                '}';
+        return "User{"
+                + "name='" + name + '\''
+                + ", age=" + age
+                + ", phone='" + phone + '\''
+                + '}';
     }
 
     public void access(String login, char[] password) {
