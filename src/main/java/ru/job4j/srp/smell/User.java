@@ -1,4 +1,4 @@
-package ru.job4j.srp;
+package ru.job4j.srp.smell;
 
 /**
  * Это модельный класс. Цель этого класса - это описание свойств объекта типа User.
