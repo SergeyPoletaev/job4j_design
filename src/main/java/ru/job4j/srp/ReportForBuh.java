@@ -1,9 +1,11 @@
 package ru.job4j.srp;
 
+import java.text.SimpleDateFormat;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class ReportForBuh implements Report {
+    public final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd:MM:yyyy");
     private final Store store;
 
     public ReportForBuh(Store store) {

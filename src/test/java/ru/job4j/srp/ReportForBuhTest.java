@@ -6,7 +6,7 @@ import java.util.Calendar;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static ru.job4j.srp.ReportEngine.DATE_FORMAT;
+import static ru.job4j.srp.ReportForBuh.DATE_FORMAT;
 
 public class ReportForBuhTest {
 

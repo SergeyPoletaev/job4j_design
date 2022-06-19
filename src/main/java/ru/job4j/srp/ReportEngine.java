@@ -1,8 +1,10 @@
 package ru.job4j.srp;
 
+import java.text.SimpleDateFormat;
 import java.util.function.Predicate;
 
 public class ReportEngine implements Report {
+    public final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd:MM:yyyy HH:mm");
     private final Store store;
 
     public ReportEngine(Store store) {
