@@ -1,6 +1,9 @@
 package ru.job4j.srp;
 
 import org.junit.Test;
+import ru.job4j.srp.model.Employee;
+import ru.job4j.srp.report.ReportForHR;
+import ru.job4j.srp.store.MemStore;
 
 import java.util.Calendar;
 

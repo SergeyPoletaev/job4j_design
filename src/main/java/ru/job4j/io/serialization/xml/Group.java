@@ -6,10 +6,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "group")
 public class Group {
     @XmlAttribute
-    private final String name;
+    private String name;
 
     public Group(String name) {
         this.name = name;
+    }
+
+    public Group() {
+
     }
 
     @Override
