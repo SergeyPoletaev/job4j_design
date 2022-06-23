@@ -29,20 +29,18 @@ public class ReportXMLTest {
         StringBuilder sb = new StringBuilder();
         String ln = System.lineSeparator();
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>").append(ln)
-                .append("<employee>").append(ln)
-                .append("    <employees>").append(ln)
-                .append("        <fired>").append(formatter.format(emp.getFired().getTime())).append("</fired>").append(ln)
-                .append("        <hired>").append(formatter.format(emp.getHired().getTime())).append("</hired>").append(ln)
-                .append("        <name>").append(emp.getName()).append("</name>").append(ln)
-                .append("        <salary>").append(emp.getSalary()).append("</salary>").append(ln)
-                .append("    </employees>").append(ln)
-                .append("    <employees>").append(ln)
-                .append("        <fired>").append(formatter.format(emp2.getFired().getTime())).append("</fired>").append(ln)
-                .append("        <hired>").append(formatter.format(emp2.getHired().getTime())).append("</hired>").append(ln)
-                .append("        <name>").append(emp2.getName()).append("</name>").append(ln)
-                .append("        <salary>").append(emp2.getSalary()).append("</salary>").append(ln)
-                .append("    </employees>").append(ln)
-                .append("</employee>").append(ln);
+                .append("<employees>").append(ln)
+                .append("    <employee")
+                .append(" name=\"").append(emp.getName()).append("\"")
+                .append(" hired=\"").append(formatter.format(emp.getHired().getTime())).append("\"")
+                .append(" fired=\"").append(formatter.format(emp.getFired().getTime())).append("\"")
+                .append(" salary=\"").append(emp.getSalary()).append("\"/>").append(ln)
+                .append("    <employee")
+                .append(" name=\"").append(emp2.getName()).append("\"")
+                .append(" hired=\"").append(formatter.format(emp2.getHired().getTime())).append("\"")
+                .append(" fired=\"").append(formatter.format(emp2.getFired().getTime())).append("\"")
+                .append(" salary=\"").append(emp2.getSalary()).append("\"/>").append(ln)
+                .append("</employees>").append(ln);
         assertThat(rsl, is(sb.toString()));
     }
 }
