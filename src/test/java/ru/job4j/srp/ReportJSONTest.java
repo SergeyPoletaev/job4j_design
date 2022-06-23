@@ -1,14 +1,11 @@
 package ru.job4j.srp;
 
 import org.junit.Test;
-import ru.job4j.srp.formatter.DateFormatter;
-import ru.job4j.srp.formatter.SimpleDateFormatter;
 import ru.job4j.srp.model.Employee;
 import ru.job4j.srp.report.ReportJSON;
 import ru.job4j.srp.store.MemStore;
 import ru.job4j.srp.store.Store;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -24,7 +21,6 @@ public class ReportJSONTest {
         Store store = new MemStore();
         store.add(emp);
         store.add(emp2);
-        DateFormatter formatter = new SimpleDateFormatter(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"));
         String rsl = new ReportJSON(store).generate(e -> true);
         StringBuilder sb = new StringBuilder();
         sb.append("[{")
