@@ -4,16 +4,17 @@ import ru.job4j.srp.model.Employee;
 import ru.job4j.srp.model.Employees;
 import ru.job4j.srp.store.Store;
 
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import java.io.StringWriter;
 import java.util.function.Predicate;
 
 public class ReportXML implements Report {
     private final Store store;
+    private final Marshaller marshaller;
 
-    public ReportXML(Store store) {
+    public ReportXML(Store store, Marshaller marshaller) {
         this.store = store;
+        this.marshaller = marshaller;
     }
 
     @Override
@@ -21,9 +22,6 @@ public class ReportXML implements Report {
         Employees employees = new Employees(store.findBy(filter));
         String xml = "";
         try (StringWriter writer = new StringWriter()) {
-            JAXBContext context = JAXBContext.newInstance(Employees.class);
-            Marshaller marshaller = context.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             marshaller.marshal(employees, writer);
             xml = writer.getBuffer().toString();
         } catch (Exception ex) {

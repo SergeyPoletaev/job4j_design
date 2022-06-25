@@ -1,6 +1,8 @@
 package ru.job4j.srp;
 
+import com.google.gson.Gson;
 import org.junit.Test;
+import ru.job4j.srp.config.GsonConfigurator;
 import ru.job4j.srp.formatter.DateFormatter;
 import ru.job4j.srp.formatter.SimpleDateFormatter;
 import ru.job4j.srp.model.Employee;
@@ -25,7 +27,8 @@ public class ReportJSONTest {
         store.add(emp);
         store.add(emp2);
         DateFormatter formatter = new SimpleDateFormatter(new SimpleDateFormat("dd:MM:yyyy"));
-        String rsl = new ReportJSON(store, formatter).generate(e -> true);
+        Gson gson = new GsonConfigurator(formatter).get();
+        String rsl = new ReportJSON(store, gson).generate(e -> true);
         StringBuilder sb = new StringBuilder();
         String ln = System.lineSeparator();
         sb.append("[").append(ln).append("  ")

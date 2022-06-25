@@ -1,6 +1,7 @@
 package ru.job4j.srp;
 
 import org.junit.Test;
+import ru.job4j.srp.config.JaxbConfigurator;
 import ru.job4j.srp.formatter.DateFormatter;
 import ru.job4j.srp.formatter.SimpleDateFormatter;
 import ru.job4j.srp.model.Employee;
@@ -8,6 +9,7 @@ import ru.job4j.srp.report.ReportXML;
 import ru.job4j.srp.store.MemStore;
 import ru.job4j.srp.store.Store;
 
+import javax.xml.bind.Marshaller;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -25,10 +27,11 @@ public class ReportXMLTest {
         store.add(emp);
         store.add(emp2);
         DateFormatter formatter = new SimpleDateFormatter(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"));
-        String rsl = new ReportXML(store).generate(e -> true);
-        StringBuilder sb = new StringBuilder();
+        Marshaller marshaller = new JaxbConfigurator(formatter).get();
+        String rsl = new ReportXML(store, marshaller).generate(e -> true);
         String ln = System.lineSeparator();
-        sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>").append(ln)
+        StringBuilder sb = new StringBuilder()
+                .append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>").append(ln)
                 .append("<employees>").append(ln)
                 .append("    <employee")
                 .append(" name=\"").append(emp.getName()).append("\"")
