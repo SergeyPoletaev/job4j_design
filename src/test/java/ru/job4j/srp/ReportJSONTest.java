@@ -1,8 +1,6 @@
 package ru.job4j.srp;
 
-import com.google.gson.Gson;
 import org.junit.Test;
-import ru.job4j.srp.config.GsonConfigurator;
 import ru.job4j.srp.formatter.DateFormatter;
 import ru.job4j.srp.formatter.SimpleDateFormatter;
 import ru.job4j.srp.model.Employee;
@@ -27,24 +25,27 @@ public class ReportJSONTest {
         store.add(emp);
         store.add(emp2);
         DateFormatter formatter = new SimpleDateFormatter(new SimpleDateFormat("dd:MM:yyyy"));
-        Gson gson = new GsonConfigurator(formatter).get();
-        String rsl = new ReportJSON(store, gson).generate(e -> true);
-        StringBuilder sb = new StringBuilder();
-        String ln = System.lineSeparator();
-        sb.append("[").append(ln).append("  ")
-                .append("{").append(ln)
-                .append("    ").append("\"name\": \"").append(emp.getName()).append("\"").append(",").append(ln)
-                .append("    ").append("\"hired\": \"").append(formatter.format(emp.getHired().getTime())).append("\",").append(ln)
-                .append("    ").append("\"fired\": \"").append(formatter.format(emp.getFired().getTime())).append("\",").append(ln)
-                .append("    ").append("\"salary\": ").append(emp.getSalary()).append(ln)
-                .append("  }").append(",").append(ln)
-                .append("  {").append(ln)
-                .append("    ").append("\"name\": \"").append(emp2.getName()).append("\"").append(",").append(ln)
-                .append("    ").append("\"hired\": \"").append(formatter.format(emp2.getHired().getTime())).append("\",").append(ln)
-                .append("    ").append("\"fired\": \"").append(formatter.format(emp2.getFired().getTime())).append("\",").append(ln)
-                .append("    ").append("\"salary\": ").append(emp2.getSalary()).append(ln)
-                .append("  }").append(ln)
-                .append("]");
-        assertThat(rsl, is(sb.toString()));
+        String hiredEmp = formatter.format(emp.getHired().getTime());
+        String firedEmp = formatter.format(emp.getFired().getTime());
+        String hiredEmp2 = formatter.format(emp2.getHired().getTime());
+        String firedEmp2 = formatter.format(emp2.getFired().getTime());
+        String rsl = new ReportJSON(store, formatter).generate(e -> true);
+        String exp = """
+                [
+                  {
+                    "name": "anna",
+                    "hired": "%s",
+                    "fired": "%s",
+                    "salary": 100
+                  },
+                  {
+                    "name": "sveta",
+                    "hired": "%s",
+                    "fired": "%s",
+                    "salary": 200
+                  }
+                ]
+                """.formatted(hiredEmp, firedEmp, hiredEmp2, firedEmp2).trim();
+        assertThat(rsl, is(exp));
     }
 }

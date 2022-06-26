@@ -1,5 +1,7 @@
 package ru.job4j.srp.report;
 
+import ru.job4j.srp.config.JaxbConfigurator;
+import ru.job4j.srp.formatter.DateFormatter;
 import ru.job4j.srp.model.Employee;
 import ru.job4j.srp.model.Employees;
 import ru.job4j.srp.store.Store;
@@ -12,9 +14,9 @@ public class ReportXML implements Report {
     private final Store store;
     private final Marshaller marshaller;
 
-    public ReportXML(Store store, Marshaller marshaller) {
+    public ReportXML(Store store, DateFormatter formatter) {
         this.store = store;
-        this.marshaller = marshaller;
+        this.marshaller = new JaxbConfigurator(formatter).get();
     }
 
     @Override
