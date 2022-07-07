@@ -1,4 +1,4 @@
-package ru.job4j.lsp;
+package ru.job4j.lsp.smell;
 
 public class DeliveryService {
     private Restaurant restaurant;
