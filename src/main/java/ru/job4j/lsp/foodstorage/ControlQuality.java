@@ -11,7 +11,8 @@ public class ControlQuality {
 
     public void redistribute(Food food) {
         for (Store store : stores) {
-            if (store.add(food)) {
+            if (store.accept(food)) {
+                store.add(food);
                 break;
             }
         }
