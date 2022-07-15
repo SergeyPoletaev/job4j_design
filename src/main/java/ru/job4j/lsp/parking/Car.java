@@ -1,10 +1,10 @@
 package ru.job4j.lsp.parking;
 
 public class Car implements Vehicle {
-    private static final int SIZE = 1;
+    private final int size = Size.ONE.getValue();
 
     @Override
     public int getSize() {
-        return 0;
+        return size;
     }
 }
