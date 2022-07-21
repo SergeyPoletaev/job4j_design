@@ -8,14 +8,17 @@ public class SimpleMenu implements Menu {
     @Override
     public boolean add(String parentName, String childName, ActionDelegate actionDelegate) {
         boolean rsl = false;
-        if (parentName == null) {
-            rootElements.add(new SimpleMenuItem(childName, actionDelegate));
-        } else {
-            Optional<ItemInfo> itemInfoParent = findItem(parentName);
-            if (itemInfoParent.isPresent()) {
-                SimpleMenuItem menuItem = (SimpleMenuItem) itemInfoParent.get().menuItem;
-                menuItem.addChildren(new SimpleMenuItem(childName, actionDelegate));
+        if (findItem(childName).isEmpty()) {
+            if (parentName == null) {
+                rootElements.add(new SimpleMenuItem(childName, actionDelegate));
                 rsl = true;
+            } else {
+                Optional<ItemInfo> itemInfoParent = findItem(parentName);
+                if (itemInfoParent.isPresent()) {
+                    SimpleMenuItem menuItem = (SimpleMenuItem) itemInfoParent.get().menuItem;
+                    menuItem.addChildren(new SimpleMenuItem(childName, actionDelegate));
+                    rsl = true;
+                }
             }
         }
         return rsl;
@@ -23,13 +26,7 @@ public class SimpleMenu implements Menu {
 
     @Override
     public Optional<MenuItemInfo> select(String itemName) {
-        Optional<MenuItemInfo> rsl = Optional.empty();
-        Optional<ItemInfo> optionalItemInfo = findItem(itemName);
-        if (optionalItemInfo.isPresent()) {
-            ItemInfo itemInfo = optionalItemInfo.get();
-            rsl = Optional.of(new Menu.MenuItemInfo(itemInfo.menuItem, itemInfo.number));
-        }
-        return rsl;
+        return findItem(itemName).map(itemInfo -> new MenuItemInfo(itemInfo.menuItem, itemInfo.number));
     }
 
     @Override
@@ -57,6 +54,7 @@ public class SimpleMenu implements Menu {
             ItemInfo itemInfo = it.next();
             if (name.equals(itemInfo.menuItem.getName())) {
                 rsl = Optional.of(itemInfo);
+                break;
             }
         }
         return rsl;

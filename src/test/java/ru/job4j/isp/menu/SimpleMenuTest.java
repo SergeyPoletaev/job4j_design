@@ -3,10 +3,12 @@ package ru.job4j.isp.menu;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class SimpleMenuTest {
     public static final ActionDelegate STUB_ACTION = System.out::println;
@@ -63,5 +65,21 @@ public class SimpleMenuTest {
                 ------2.1.Погулять с собакой
                 ---------2.1.1.Погладить собаку
                 """.trim()));
+    }
+
+    @Test
+    public void whenItemNameIsMissingThanReturnOptionalEmpty() {
+        Menu menu = new SimpleMenu();
+        menu.add(Menu.ROOT, "Сходить в магазин", STUB_ACTION);
+        menu.add("Сходить в магазин", "Купить продукты", STUB_ACTION);
+        menu.add("Купить продукты", "Купить хлеб", STUB_ACTION);
+        assertThat(menu.select("Купить орехи"), is(Optional.empty()));
+    }
+
+    @Test
+    public void whenAddDuplicateThenReturnFalse() {
+        Menu menu = new SimpleMenu();
+        menu.add(Menu.ROOT, "Сходить в магазин", STUB_ACTION);
+        assertFalse(menu.add(Menu.ROOT, "Сходить в магазин", STUB_ACTION));
     }
 }
