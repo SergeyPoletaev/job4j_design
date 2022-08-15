@@ -21,6 +21,11 @@ public class WareHouse implements Store {
     }
 
     @Override
+    public void clear() {
+        container.clear();
+    }
+
+    @Override
     public boolean accept(Food food) {
         return verification(food) < Bound.TWENTY_FIVE.getValue();
     }

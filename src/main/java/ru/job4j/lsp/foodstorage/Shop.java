@@ -28,6 +28,11 @@ public class Shop implements Store {
     }
 
     @Override
+    public void clear() {
+        container.clear();
+    }
+
+    @Override
     public boolean accept(Food food) {
         double percent = verification(food);
         boolean check = percent >= Bound.TWENTY_FIVE.getValue() && percent < Bound.ONE_HUNDRED.getValue();

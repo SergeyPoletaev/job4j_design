@@ -10,6 +10,8 @@ public interface Store {
 
     List<Food> findAll();
 
+    void clear();
+
     default double verification(Food food) {
         long createDateInMillis = food.getCreateDate().getTimeInMillis();
         long productLifeTime = food.getExpiryDate().getTimeInMillis() - createDateInMillis;
