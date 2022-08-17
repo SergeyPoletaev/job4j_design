@@ -1,14 +1,13 @@
 package ru.job4j.lsp.foodstorage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControlQuality {
     private final List<Store> stores;
-    private final TransitStore transit;
 
-    public ControlQuality(List<Store> stores, TransitStore transit) {
+    public ControlQuality(List<Store> stores) {
         this.stores = stores;
-        this.transit = transit;
     }
 
     public void redistribute(Food food) {
@@ -21,12 +20,12 @@ public class ControlQuality {
     }
 
     public void resort() {
+        List<Food> transit = new ArrayList<>();
         for (Store store : stores) {
-            List<Food> foods = store.findAll();
-            transit.addAll(foods);
+            transit.addAll(store.findAll());
             store.clear();
         }
-        for (Food food : transit.findAll()) {
+        for (Food food : transit) {
             redistribute(food);
         }
     }

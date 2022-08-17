@@ -21,7 +21,7 @@ public class ControlQualityTest {
         Store warehouse = new WareHouse();
         Store shop = new Shop();
         Store trash = new Trash();
-        ControlQuality service = new ControlQuality(List.of(warehouse, shop, trash), new TransitStoreInMemory());
+        ControlQuality service = new ControlQuality(List.of(warehouse, shop, trash));
         Food milk = new Food("milk", createDate, expiryDate, new BigDecimal(125), 10);
         service.redistribute(milk);
         assertThat(shop.findAll(), is(List.of(milk)));
@@ -38,7 +38,7 @@ public class ControlQualityTest {
         Store warehouse = new WareHouse();
         Store shop = new Shop();
         Store trash = new Trash();
-        ControlQuality service = new ControlQuality(List.of(warehouse, shop, trash), new TransitStoreInMemory());
+        ControlQuality service = new ControlQuality(List.of(warehouse, shop, trash));
         Food milk = new Food("milk", createDate, expiryDate, new BigDecimal(125), 10);
         service.redistribute(milk);
         assertThat(shop.findAll(), is(List.of(milk)));
@@ -55,7 +55,7 @@ public class ControlQualityTest {
         Store warehouse = new WareHouse();
         Store shop = new Shop();
         Store trash = new Trash();
-        ControlQuality service = new ControlQuality(List.of(warehouse, shop, trash), new TransitStoreInMemory());
+        ControlQuality service = new ControlQuality(List.of(warehouse, shop, trash));
         Food milk = new Food("milk", createDate, expiryDate, new BigDecimal(125), 10);
         service.redistribute(milk);
         assertThat(trash.findAll(), is(List.of(milk)));
@@ -94,7 +94,7 @@ public class ControlQualityTest {
         Store warehouse = new WareHouse();
         Store shop = new Shop();
         Store trash = new Trash();
-        ControlQuality service = new ControlQuality(List.of(warehouse, shop, trash), new TransitStoreInMemory());
+        ControlQuality service = new ControlQuality(List.of(warehouse, shop, trash));
         List<Food> foods = List.of(milk, bread, coffee, orange);
         foods.forEach(service::redistribute);
         assertThat(warehouse.findAll(), is(List.of(milk)));
